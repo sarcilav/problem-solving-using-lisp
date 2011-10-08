@@ -2,7 +2,7 @@
   "recursive until you find a 42"
 
   (if (= val 42)
-      NIL
+      0
     (progn
       (print val)
       (doit (read))

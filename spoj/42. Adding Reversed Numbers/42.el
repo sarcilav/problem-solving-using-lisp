@@ -10,7 +10,7 @@
 
 (defun doit (cases)
   (if (= cases 0)
-      NIL
+      0
     (progn
       (solve )
       (doit (- cases 1))
