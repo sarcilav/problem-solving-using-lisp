@@ -60,13 +60,40 @@
 ;; car = first
 ;; cdr = rest
 
-(mapcar #'- '(1 2 3 4)) ;; (-1 -2 -3 -4)
-(mapcar #'+ '(1 2 3 4) '(40 30 20 10)) ;; (41 32 23 14)
-(mapcar #'+ '(1 2 3 4) '(40 30 20)) ;; (41 32 23)
+(mapcar #'- '(1 2 3 4))                   ;; (-1 -2 -3 -4)
+(mapcar #'+ '(1 2 3 4) '(40 30 20 10))    ;; (41 32 23 14)
+(mapcar #'+ '(1 2 3 4) '(40 30 20))       ;; (41 32 23)
 (mapcar #'+ '(1 2 3 4) '(40 30 20 10 10)) ;; (41 32 23 14)
 
 ;; Note mapcar in general expects an n-ary function as its first
 ;; argument, followed by n lists.
 
 (mapcar #'first-name names) ;; (JOHN MALCOLM ADMIRAL SPOT ARISTOTLE A Z SIR MISS)
+
+(defparameter *titles*
+  '(Mr Mrs Miss Ms Sir Madam Dr Admiral Major General)
+  "A list of titles that can appear at the start of a name.")
+
+(defun first-name (name)
+  "Select the first name from a name represented as a list."
+  (if (member (first name) *titles*)
+      (first-name (rest name))
+    (first name)))
+
+(mapcar #'first-name names) ;; (JOHN MALCOLM GRACE SPOT ARISTOTLE A Z LARRY SCARLET)
+
+(first-name '(Madam Major General Paula Jones)) ;; PAULA
+
+(trace first-name) ;; trace/untrace to track the execution of a function
+
+;; * (first-name '(Madam Major General Paula Jones))
+;;   0: (FIRST-NAME (MADAM MAJOR GENERAL PAULA JONES))
+;;     1: (FIRST-NAME (MAJOR GENERAL PAULA JONES))
+;;       2: (FIRST-NAME (GENERAL PAULA JONES))
+;;         3: (FIRST-NAME (PAULA JONES))
+;;         3: FIRST-NAME returned PAULA
+;;       2: FIRST-NAME returned PAULA
+;;     1: FIRST-NAME returned PAULA
+;;   0: FIRST-NAME returned PAULA
+;; PAULA
 
