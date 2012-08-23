@@ -1,4 +1,4 @@
-;; Time Limit
+;; Accepted with sbcl
 (defun Z ( n acum  )
   (if (= n 0)
       acum
