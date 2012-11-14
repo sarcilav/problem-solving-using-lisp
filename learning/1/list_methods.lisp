@@ -28,6 +28,7 @@
 
 ;; Construct cons
 
+;; cons uses the first param as the head of the list
 (cons x p) ;; (((1ST ELEMENT) 2 (ELEMENT 3) ((4)) 5) JOHN Q PUBLIC STREET)
 
 ;; using functions

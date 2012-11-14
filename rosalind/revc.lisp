@@ -1,0 +1,16 @@
+(defun symbol-to-list (sym)
+  (coerce (princ-to-string sym) 'list))
+
+(defparameter *mirror* '((#\A #\T)
+                    (#\T #\A)
+                    (#\C #\G)
+                    (#\G #\C)))
+(defun mirror-me (tmp mirrors)
+  (cadr (assoc tmp mirrors)))
+
+(defun mirror (pos list)
+  (setf (nth pos list) (mirror-me (elt list pos) *mirror*))
+  (if (< (1+ pos) (length list))
+      (mirror (1+ pos) list)
+      list))
+(print (coerce (reverse (mirror 0 (symbol-to-list (read)))) 'string))
